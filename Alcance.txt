@@ -1,0 +1,399 @@
+
+MÓDULO 1 · Onboarding e Identidad del Usuario
+
+3.1.1 Registro y Login
+🏷  Prioridad: MVP
+•	Registro con correo electrónico + contraseña
+•	Login con Google y Apple Sign-In
+•	Verificación de correo al registrarse
+•	Recuperación de contraseña por email
+•	Pantalla de bienvenida con animación del logo Nutricare
+
+3.1.2 Perfil de Salud Inicial (Onboarding Clínico)
+🏷  Prioridad: MVP — Es el corazón de la personalización
+Flujo de 4 a 6 pantallas interactivas donde el usuario configura su perfil médico-nutricional:
+
+Pantalla 1 — Datos personales básicos:
+•	Nombre, edad, sexo biológico
+•	Peso actual (kg), altura (cm) — cálculo automático de IMC
+•	Nivel de actividad física (sedentario, moderado, activo)
+
+Pantalla 2 — Selección de condición(es) de salud (multiselección):
+•	Diabetes tipo 2
+•	Hipertensión arterial
+•	Obesidad y sobrepeso
+•	Colesterol y triglicéridos altos
+•	Gastritis y salud digestiva
+⚠️  El usuario puede tener múltiples condiciones seleccionadas simultáneamente. La lógica de recomendación debe cruzar restricciones sin contradicciones.
+
+Pantalla 3 — Preferencias alimentarias:
+•	Dieta (omnívora, vegetariana, vegana, sin restricción)
+•	Alimentos que no le gustan o no consume (campo libre + sugerencias)
+•	Presupuesto mensual aproximado para alimentación
+
+Pantalla 4 — Objetivos personales (máximo 3 selecciones):
+•	Mejorar control de mi enfermedad
+•	Perder peso
+•	Tener más energía
+•	Reducir medicamentos (con supervisión médica)
+•	Aprender a comer mejor
+•	Mantener mis resultados actuales
+
+Pantalla 5 — Recordatorios y notificaciones:
+•	¿Desea activar recordatorios de comidas? (Sí / No)
+•	Horarios de desayuno, almuerzo, cena, meriendas
+•	¿Recibir consejos diarios? (Sí / No)
+
+MÓDULO 2 · Dashboard Principal (Pantalla de Inicio)
+
+🏷  Prioridad: MVP
+La pantalla de inicio debe transmitir al usuario lo que puede hacer hoy. Elementos requeridos:
+
+3.2.1 Elementos del Dashboard
+•	Saludo personalizado con nombre del usuario y hora del día
+•	Tarjeta de menú del día con los 3 tiempos de comida + meriendas
+•	Resumen nutricional del día: calorías objetivo vs. consumidas (barra visual)
+•	Acceso rápido al Asistente IA (botón flotante o banner)
+•	Consejo del día (dato nutricional corto relacionado con su condición)
+•	Streak de días consecutivos usando la app (gamificación básica)
+•	Acceso directo a: Mis alimentos, Lista de compras, Seguimiento
+
+3.2.2 Lógica del Dashboard
+•	El menú del día cambia automáticamente cada 24 horas
+•	Los menús NO repiten la misma comida en la misma posición más de 2 veces por semana
+•	El consejo del día rota diariamente y es específico para las condiciones del usuario
+•	Si el usuario no completa el perfil de salud, el dashboard muestra un CTA para completarlo
+ 
+MÓDULO 3 · Motor de Recomendaciones Nutricionales
+
+🏷  Prioridad: MVP — Diferenciador central del producto
+
+3.3.1 Pantalla de Alimentos por Condición
+Para cada condición seleccionada en el perfil, la app muestra tres categorías de alimentos con iconografía clara:
+
+•	✅ Alimentos RECOMENDADOS — con breve explicación del beneficio
+•	❌ Alimentos a EVITAR — con explicación del porqué en lenguaje simple
+•	⚠️ Alimentos con MODERACIÓN — con indicación de frecuencia/cantidad sugerida
+
+Funcionalidades de la pantalla de alimentos:
+•	Búsqueda de alimento específico por nombre
+•	Filtro por categoría: proteínas, carbohidratos, lácteos, frutas, verduras, bebidas, etc.
+•	Modo de consulta rápida: el usuario escribe o habla un alimento y obtiene respuesta en ≤ 3 segundos
+•	Detalle de alimento: información nutricional resumida, semáforo nutricional, alternativas saludables
+•	Marcar alimentos favoritos para acceso rápido
+⚠️  Toda la base de datos nutricional debe estar validada por nutricionistas certificados y alineada con guías de la OMS y Minsalud Colombia.
+
+3.3.2 Cruce de Múltiples Condiciones
+Cuando el usuario tiene más de una condición, la app debe:
+•	Mostrar la intersección de restricciones (lo que es malo para cualquiera de las condiciones queda en "evitar")
+•	Alertar visualmente cuando un alimento está contraindicado por alguna de sus condiciones aunque sea recomendado para otra
+•	Ofrecer la opción de ver recomendaciones por condición individual
+•	Nunca mostrar contradicciones sin aclaración: si un alimento tiene restricciones cruzadas, explicar el conflicto
+ 
+MÓDULO 4 · Menús Diarios y Planificación Semanal
+
+3.4.1 Menú Diario Personalizado
+🏷  Prioridad: MVP
+•	Menú completo del día: desayuno, media mañana, almuerzo, merienda, cena
+•	Cada tiempo de comida incluye: nombre del plato, ingredientes, porciones, calorías aproximadas y tips de preparación
+•	Botón "No me gusta este menú" para regenerar una opción alternativa (máximo 2 veces por día en plan gratuito, ilimitado en premium)
+•	Botón "Marcar como consumido" para registrar el tracking
+•	Indicador de cumplimiento calórico y de macronutrientes del día
+
+3.4.2 Planificador Semanal
+🏷  Prioridad: MVP
+•	Vista de 7 días con los menús asignados
+•	Posibilidad de intercambiar días entre sí
+•	Resumen nutricional de la semana (gráfico de barras sencillo)
+•	Exportar menú semanal en PDF o imagen compartible
+
+3.4.3 Biblioteca de Recetas
+🏷  Prioridad: Fase 2
+•	Catálogo de recetas filtradas por condición de salud
+•	Cada receta incluye: foto, tiempo de preparación, porciones, ingredientes, pasos, info nutricional
+•	Función "Guardar receta" en favoritos
+•	Función "Agregar ingredientes a lista de compras" directamente desde la receta
+•	Valoración de recetas por el usuario (1 a 5 estrellas)
+ 
+MÓDULO 5 · Lista de Compras Inteligente
+
+🏷  Prioridad: MVP
+3.5.1 Generación Automática
+•	La app genera automáticamente la lista de compras a partir del menú semanal
+•	Los ingredientes se agrupan por categoría: frutas y verduras, proteínas, lácteos, granos, otros
+•	Cada ítem muestra la cantidad total necesaria para la semana
+•	Ícono de semáforo nutricional junto a cada producto
+
+3.5.2 Gestión de la Lista
+•	El usuario puede marcar ítems como "ya comprado" (tachado visual)
+•	Agregar ítems manualmente
+•	Eliminar ítems no deseados
+•	Compartir la lista por WhatsApp, correo o copiar al portapapeles
+•	Historial de listas de compras anteriores
+
+3.5.3 Alertas Nutricionales en Compras (Fase 2)
+•	Escáner de código de barras de productos del supermercado
+•	La app evalúa el producto y lo clasifica como: recomendado, moderado o evitar para las condiciones del usuario
+•	Sugerencia de alternativas más saludables al producto escaneado
+ 
+MÓDULO 6 · Asistente Nutricional con IA (Chatbot)
+
+🏷  Prioridad: MVP (versión básica) · Fase 2 (versión avanzada)
+3.6.1 Funcionalidades del Chatbot
+•	Accesible desde cualquier pantalla mediante botón flotante
+•	El chatbot conoce el perfil médico completo del usuario desde el inicio de cada sesión
+•	Responde en lenguaje simple, empático y sin tecnicismos excesivos
+•	Disponible 24/7 — respuestas en menos de 5 segundos
+
+Capacidades del asistente:
+•	Responder preguntas sobre alimentos específicos ("¿Puedo comer arroz?" / "¿Es malo el mango para la diabetes?")
+•	Explicar el porqué de las recomendaciones nutricionales
+•	Sugerir alternativas cuando el usuario no puede consumir algo
+•	Ayudar a planear una comida con ingredientes disponibles en casa
+•	Dar motivación y acompañamiento emocional ("Hoy no cumplí con el menú, ¿qué hago?")
+•	Responder preguntas generales de nutrición relacionadas con su condición
+•	Remitir al médico o nutricionista cuando la pregunta supera su alcance
+
+3.6.2 Límites y Seguridad del Chatbot
+⚠️  El asistente NUNCA debe: prescribir medicamentos, cambiar dosis médicas, diagnosticar condiciones, ni reemplazar la consulta médica. Debe incluir siempre un disclaimer visible.
+•	Disclaimer fijo en la pantalla del chat: "Soy un asistente nutricional basado en evidencia. Consulta siempre a tu médico o nutricionista para decisiones de salud importantes."
+•	Si el usuario menciona síntomas graves o emergencias, la app debe mostrar alerta para contactar atención médica
+•	Registro de todas las conversaciones para auditoría y mejora del modelo
+
+
+MÓDULO 7 · Seguimiento de Hábitos y Progreso
+
+🏷  Prioridad: Plan Anual y Premium · Fase 2 para más detalle
+3.7.1 Registro Diario
+•	Check-in diario: el usuario confirma qué comió en cada tiempo de comida
+•	Posibilidad de registrar lo que comió si fue diferente al menú sugerido
+•	Registro de agua consumida (vasos por día)
+•	Registro de actividad física (opcional, integrable con Google Fit / Apple Health)
+•	Campo de notas libre para el día ("Me sentí con más energía", "Tuve antojos")
+
+3.7.2 Reportes y Análisis de Progreso
+•	Gráfico de adherencia semanal al menú (% días cumplidos)
+•	Gráfico de calorías consumidas vs. objetivo por día (últimos 30 días)
+•	Reporte de alimentos más frecuentes consumidos
+•	Evolución de peso si el usuario lo registra semanalmente
+•	Alertas de progreso: "Llevas 7 días seguidos con tu plan. ¡Excelente!"
+•	Reporte mensual descargable en PDF con resumen del mes
+
+3.7.3 Alertas Nutricionales Inteligentes
+•	Notificación si el usuario lleva más de 2 días sin registrar ninguna comida
+•	Alerta si el consumo calórico está por debajo del 70% del objetivo por más de 3 días
+•	Recordatorios de hidratación si no ha registrado agua en el día
+•	Motivación personalizada basada en el historial del usuario
+ 
+4. Planes y Modelo de Monetización
+Nutricare opera bajo un modelo freemium con tres planes de suscripción B2C. Las suscripciones se cobran de forma recurrente y se gestionan a través de la pasarela de pago integrada.
+
+PLAN BÁSICO $0 COP/mes	PLAN ANUAL $199.000 COP/año (Ahorra 2 meses)	PLAN PREMIUM $29.900 COP/mes
+✓ Consejos diarios	✓ Consejos diarios	✓ Consejos diarios
+✓ Alimentos recomendados	✓ Alimentos recomendados	✓ Alimentos recomendados
+✓ Menú diario básico	✓ Menú diario completo	✓ Menú diario completo
+✗ Seguimiento de hábitos	✓ Seguimiento de hábitos	✓ Seguimiento de hábitos
+✗ Análisis avanzado	✓ Análisis avanzado	✓ Análisis avanzado
+✗ Reportes personalizados	✓ Reportes personalizados	✓ Reportes personalizados
+5 consultas IA/día	✓ IA ilimitada	✓ IA ilimitada
+✗ Acceso a contenido exclusivo	✓ Acceso a contenido exclusivo	✓ Acceso a contenido exclusivo
+✗ Alertas inteligentes	✓ Alertas inteligentes	✓ Alertas inteligentes
+✗ Nutricionista humano	✗ Nutricionista humano	✓ Nutricionista humano <24h
+
+4.1 Lógica de Restricción por Plan (Backend)
+•	La API debe validar el plan activo del usuario en cada request que involucre funcionalidades premium
+•	Si el usuario gratuito intenta acceder a función premium, mostrar modal de upgrade con beneficios del plan
+•	El plan no expira abruptamente: el usuario recibe notificación 7 días antes del vencimiento y 3 días antes
+•	Período de gracia de 3 días post-vencimiento antes de degradar a plan gratuito
+•	Las suscripciones anuales deben estar disponibles a través de In-App Purchase (Apple/Google) además de la web
+ 
+5. Flujos de Navegación y UX
+5.1 Flujo Principal del Usuario (Happy Path)
+•	1. Descarga la app → Pantalla de bienvenida con propuesta de valor
+•	2. Registro/Login → Verificación de correo
+•	3. Onboarding clínico (5 pantallas) → Generación del primer perfil nutricional
+•	4. Dashboard inicial → Menú del día generado automáticamente
+•	5. Exploración de alimentos → Consulta de qué puede y no puede comer
+•	6. Lista de compras generada → Compra y registro de consumo
+•	7. Check-in diario → Visualización de progreso
+•	8. Interacción con chatbot → Resolución de dudas en tiempo real
+
+5.2 Navegación por Pestañas (Bottom Tab)
+Tab 1 — Inicio	Dashboard con menú del día, consejo y acceso rápido
+Tab 2 — Alimentos	Buscador y listado por categorías y condición
+Tab 3 — Mi Plan	Menú semanal + recetas + lista de compras
+Tab 4 — Progreso	Seguimiento, gráficos, reportes (plan premium)
+Tab 5 — Perfil	Datos personales, condiciones, plan, ajustes, soporte
+
+5.3 Principios de UX/UI Obligatorios
+•	Máximo 3 toques para llegar a cualquier funcionalidad principal
+•	Textos en lenguaje simple: nivel de comprensión lectora secundaria
+•	Íconos siempre acompañados de etiqueta de texto (no solo íconos solos)
+•	Colores corporativos: verde oscuro (#1A5C2E), verde medio (#2E7D47), verde claro (#E8F5EC)
+•	Tipografía mínima 14pt para body text, 16pt para elementos interactivos
+•	Modo oscuro disponible desde configuración
+•	Sin scroll horizontal en pantallas principales
+•	Estados de carga con skeleton screens (no spinner genérico)
+•	Manejo de errores con mensajes amigables, no códigos técnicos
+•	Diseño accesible: contraste AA, soporte de lectores de pantalla
+ 
+6. Seguridad, Privacidad y Cumplimiento
+⚠️  Esta app maneja datos de salud sensibles. El cumplimiento de privacidad es NO negociable.
+
+6.1 Protección de Datos
+•	Cumplimiento con Ley 1581 de 2012 (Protección de Datos Personales — Colombia)
+•	Política de privacidad y términos de uso aceptados explícitamente en el onboarding
+•	Los datos de salud se almacenan cifrados en reposo (AES-256) y en tránsito (TLS 1.3)
+•	Los datos nutricionales del usuario NUNCA se venden a terceros
+•	El usuario puede exportar todos sus datos en cualquier momento (derecho de portabilidad)
+•	El usuario puede eliminar su cuenta y todos sus datos permanentemente desde ajustes
+
+6.2 Autenticación y Sesiones
+•	Tokens JWT con expiración de 24 horas, refresh tokens con 30 días
+•	Bloqueo de cuenta tras 5 intentos fallidos de login (desbloqueo por email)
+•	Autenticación biométrica (FaceID/TouchID) como opción opcional
+•	Sesión activa visible en ajustes con opción de cerrar sesión en todos los dispositivos
+
+6.3 Seguridad del Chatbot IA
+•	El chatbot no debe revelar el prompt de sistema ni datos de otros usuarios
+•	Filtros de contenido activos para detectar y bloquear intentos de prompt injection
+•	Moderación automática de respuestas antes de enviarse al usuario
+•	Si el usuario menciona suicidio, autolesión o emergencia médica: respuesta protocolizada + recursos de ayuda
+ 
+7. Sistema de Notificaciones Push
+7.1 Tipos de Notificaciones
+Recordatorio de comida	Hora personalizable. Ej: "Tu almuerzo de hoy: Sopa de lentejas 🍲"
+Consejo del día	Enviado en la mañana (8 AM por defecto). Configurable.
+Hidratación	Recordatorio de tomar agua si no ha registrado (cada 3h durante el día)
+Progreso semanal	Domingo PM: resumen de la semana y motivación para la siguiente
+Streak de días	Al completar 7, 14, 30 días consecutivos
+Vencimiento de plan	7 días y 3 días antes del vencimiento del plan de pago
+Contenido nuevo	Cuando se agregan recetas o artículos relevantes para su condición
+
+7.2 Configuración de Notificaciones
+•	El usuario puede activar/desactivar cada tipo de notificación de forma independiente
+•	Horario de silencio configurable (ej: no notificar entre 10pm y 7am)
+•	Frecuencia configurable para recordatorios de agua
+•	Notificaciones locales para recordatorios de comida (no dependen del backend)
+ 
+8. Módulo de Contenido Educativo
+🏷  Prioridad: Fase 2
+El módulo educativo es un diferenciador importante para la retención de usuarios y posicionamiento de autoridad de la marca Nutricare.
+
+8.1 Tipos de Contenido
+•	Artículos breves (500–800 palabras) sobre nutrición y enfermedades crónicas
+•	Videos cortos (2–5 minutos) con nutricionistas explicando temas clave
+•	Infografías descargables: semáforo de alimentos por condición
+•	Guías prácticas en PDF: "Cómo leer etiquetas nutricionales", "Menú de 7 días para diabéticos"
+•	Podcast de salud nutricional (integrado o links externos)
+
+8.2 Personalización del Contenido
+•	El contenido se filtra y prioriza según las condiciones de salud del usuario
+•	Sistema de etiquetas por condición, por objetivo y por nivel de conocimiento
+•	Sección "Guardados" para artículos marcados como favoritos
+•	Contador de artículos leídos y badges de aprendizaje
+
+8.3 CMS (Content Management System)
+•	Panel de administración web para que el equipo de Nutricare cargue y actualice contenido
+•	El CMS debe permitir programar publicaciones, categorizar por condición y destacar artículos
+•	Control de versiones del contenido para poder actualizarlo sin perder el historial
+ 
+9. Panel de Administración (Back-office Web)
+🏷  Prioridad: MVP para funciones básicas · Fase 2 para analytics
+9.1 Gestión de Usuarios
+•	Listado de usuarios con filtros: plan, condición de salud, fecha de registro, actividad
+•	Ver perfil detallado de usuario (sin contraseñas)
+•	Activar/desactivar cuentas manualmente
+•	Gestionar suscripciones: extender, cancelar, reembolsar
+
+9.2 Gestión de Contenido Nutricional
+•	CRUD completo de alimentos: agregar, editar, desactivar alimentos de la base de datos
+•	CRUD de menús y recetas
+•	CRUD de artículos del módulo educativo
+•	Control de versiones de la base de datos nutricional con registro de cambios
+
+9.3 Analytics y Métricas (Fase 2)
+•	Usuarios activos diarios/mensuales (DAU / MAU)
+•	Tasa de conversión free → pago
+•	Tasa de retención a 7, 30 y 90 días
+•	Funcionalidades más usadas
+•	Preguntas más frecuentes al chatbot (para mejorar la base de conocimiento)
+•	Ingresos por plan y por período
+ 
+10. Fases de Desarrollo y Entregables
+Fase	Duración estimada	Entregables	Objetivo
+MVP	10–12 semanas	Registro/login, onboarding clínico, motor de alimentos, menú diario, lista de compras, chatbot IA básico, plan gratuito y premium básico	Validar el concepto central
+Fase 2	6–8 semanas	Seguimiento avanzado, reportes, planificador semanal, biblioteca de recetas, escáner de productos, notificaciones inteligentes, panel admin completo	Mejorar retención
+Fase 3	8–10 semanas	Módulo educativo, integración wearables, marketplace de alimentos, versión web, alianzas B2B con EPS/clínicas, analytics avanzado	Escalar y diversificar ingresos
+ 
+11. Requerimientos No Funcionales
+11.1 Rendimiento
+Tiempo de carga de pantalla	< 2 segundos en conexión 4G
+Respuesta del chatbot IA	< 5 segundos por respuesta
+Generación de menú diario	< 3 segundos
+Generación de lista de compras	< 2 segundos
+Disponibilidad del servicio	99.5% uptime mínimo (SLA)
+
+11.2 Escalabilidad
+•	La arquitectura debe soportar desde 100 hasta 100.000 usuarios activos sin rediseño
+•	Uso de CDN para assets estáticos (imágenes de alimentos, recetas, contenido educativo)
+•	Caché en Redis para consultas frecuentes de la base de datos nutricional
+•	Base de datos con replicación para alta disponibilidad
+
+11.3 Compatibilidad
+iOS	Versión 15 o superior
+Android	Versión 10 (API 29) o superior
+Resoluciones	Optimizado para pantallas de 5" a 6.7"
+Orientación	Solo vertical (portrait). Sin soporte landscape obligatorio en MVP
+Idioma	Español colombiano. Preparado para expansión a otros países de LATAM
+
+11.4 Accesibilidad
+•	Compatibilidad con VoiceOver (iOS) y TalkBack (Android)
+•	Contraste de color mínimo 4.5:1 (WCAG AA)
+•	Tamaños de fuente escalables según configuración del sistema operativo
+•	Elementos táctiles con área mínima de 44x44pt
+ 
+12. Entregables y Criterios de Aceptación
+12.1 Documentación Esperada del Desarrollador
+•	Repositorio de código en Git con ramas: main, develop, feature/*
+•	README con instrucciones de instalación, variables de entorno y comandos
+•	Documentación de API en Swagger/Postman Collection actualizada
+•	Diagramas de arquitectura y base de datos (ERD)
+•	Registro de decisiones técnicas (ADR — Architecture Decision Records)
+
+12.2 Criterios de Aceptación por Módulo
+•	Onboarding: el usuario puede completar el registro y perfil clínico en menos de 5 minutos
+•	Motor de alimentos: la consulta de un alimento devuelve resultado en < 3 segundos con clasificación correcta para la condición
+•	Menú diario: el menú generado respeta TODAS las restricciones del perfil del usuario sin excepciones
+•	Chatbot: responde correctamente al 95% de preguntas de alimentos en prueba con 50 casos de prueba definidos
+•	Lista de compras: se genera automáticamente desde el menú sin errores de ingredientes duplicados o faltantes
+•	Seguimiento: el gráfico de adherencia refleja correctamente los check-ins del usuario con 0% de discrepancias
+•	Pagos: el flujo de suscripción completa sin errores en entorno de prueba (sandbox) con todas las pasarelas
+
+12.3 Testing Mínimo Requerido
+•	Unit tests con cobertura ≥ 70% en lógica de negocio crítica (motor de recomendaciones, cálculo nutricional)
+•	Integration tests para todos los endpoints de la API
+•	Test end-to-end del flujo de onboarding completo
+•	Test de carga: la app debe soportar 500 usuarios concurrentes sin degradación de rendimiento
+•	Test de regresión antes de cada release a producción
+
+12.4 Metodología de Trabajo
+•	Sprints de 2 semanas con demo al final de cada sprint
+•	Daily standups de 15 minutos (async por mensaje si el equipo es remoto)
+•	Revisión de código (code review) obligatoria antes de merge a develop
+•	Staging environment requerido — nunca desarrollar directamente en producción
+•	Control de versiones semántico: v1.0.0, v1.1.0, etc.
+ 
+RESUMEN EJECUTIVO PARA EL DESARROLLADOR
+
+Este documento contiene las especificaciones completas para el desarrollo de Nutricare, una app móvil de nutrición personalizada con IA para personas con enfermedades crónicas. A continuación, los puntos más críticos:
+
+•	El motor de recomendaciones nutricionales es el corazón del producto. Debe soportar múltiples condiciones simultáneas y nunca mostrar contradicciones sin aclaración.
+•	El chatbot IA debe conocer el perfil médico del usuario en cada sesión y responder en lenguaje simple, con límites claros de seguridad y disclaimers médicos.
+•	Los datos de salud son altamente sensibles: cifrado obligatorio, cumplimiento de Ley 1581 y política de cero venta de datos.
+•	El MVP debe ser funcional, estable y validado con usuarios reales antes de añadir features de Fase 2. Mejor lanzar menos funciones bien hechas que muchas a medias.
+•	El diseño debe ser simple y empático: el usuario objetivo (35–55 años con enfermedades crónicas) no es experto en tecnología y puede tener limitaciones visuales o cognitivas.
+•	Las restricciones por plan (gratuito/premium) deben estar 100% gestionadas en el backend, nunca solo en el frontend.
+
+¿Preguntas sobre estas especificaciones? Contáctanos antes de iniciar el desarrollo.
+🌿 Nutricare — Nutrición inteligente para una vida más saludable
