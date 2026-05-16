@@ -70,11 +70,17 @@ export async function requestPasswordReset(req: Request, res: Response) {
 
     const frontendUrl = process.env.FRONTEND_URL ?? 'http://localhost:5173'
     const resetUrl = `${frontendUrl}/reset-password?token=${token}`
-    await sendResetEmail(email, resetUrl)
+
+    try {
+      await sendResetEmail(email, resetUrl)
+    } catch (mailError) {
+      console.error('Error enviando email de recuperación:', mailError)
+      // No exponemos el error SMTP al cliente, pero tampoco bloqueamos la respuesta
+    }
 
     return res.status(200).json({ message: 'Si el correo existe, recibirás las instrucciones.' })
   } catch (error) {
-    console.error('Error en forgot-password:', error)
+    console.error('Error en forgot-password (DB):', error)
     return res.status(500).json({ error: 'Error interno del servidor.' })
   }
 }
