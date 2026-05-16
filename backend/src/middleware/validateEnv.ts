@@ -1,12 +1,14 @@
 import { config } from 'dotenv';
 
 export default function validateEnv() {
-  const result = config();
-  if (result.error) {
-    throw new Error('No se pudo cargar el archivo .env');
-  }
+  // En producción no hay .env — las variables vienen del entorno
+  config(); // intenta cargar .env si existe, silencia el error si no
 
   if (!process.env.JWT_SECRET) {
-    throw new Error('JWT_SECRET es obligatorio. Defínelo en .env');
+    throw new Error('JWT_SECRET es obligatorio.');
+  }
+
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL es obligatorio.');
   }
 }
