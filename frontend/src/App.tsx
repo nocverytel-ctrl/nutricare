@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
@@ -13,7 +14,7 @@ import LandingPage from './pages/LandingPage'
 import './App.css'
 import './styles/onboarding.css'
 
-function PrivateRoute({ children }: { children: JSX.Element }) {
+function PrivateRoute({ children }: { children: React.ReactElement }) {
   const { token } = useAuth()
   return token ? children : <Navigate to="/login" replace />
 }

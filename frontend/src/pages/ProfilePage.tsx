@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  ArrowLeft, Edit2, Crown, Zap, Leaf, Activity, Scale, Ruler,
-  Calendar, Heart, Target, Clock, Bell, Utensils, Wallet,
-  AlertCircle, CheckCircle2, Sparkles, ChevronRight, User,
+  ArrowLeft, Edit2, Crown, Zap, Leaf, Activity, Scale,
+  Heart, Target, Clock, Bell, Utensils, Wallet,
+  CheckCircle2, Sparkles, ChevronRight,
 } from 'lucide-react'
 import { useAuth, type SubscriptionPlan } from '../context/AuthContext'
 
