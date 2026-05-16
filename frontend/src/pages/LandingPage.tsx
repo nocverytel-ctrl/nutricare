@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   ArrowRight, Check, Zap, Crown, Leaf, UtensilsCrossed,
   MessageCircle, TrendingUp, ShoppingCart, MapPin, BookOpen,
-  Heart, Activity, Star, ChevronDown,
+  Heart, Activity, Star, ChevronDown, Play,
 } from 'lucide-react'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -409,6 +409,88 @@ export default function LandingPage() {
               <p style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', lineHeight: 'var(--leading-relaxed)' }}>{desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── VIDEOS ── */}
+      <section style={{ background: 'var(--sage-50)', padding: 'var(--space-20) var(--space-6)', borderTop: '1px solid var(--sage-100)', borderBottom: '1px solid var(--sage-100)' }}>
+        <div style={{ maxWidth: 'var(--container-xl)', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}>
+            <span style={{ display: 'inline-block', fontSize: 'var(--text-xs)', fontWeight: 'var(--font-semibold)', letterSpacing: 'var(--tracking-wider)', color: 'var(--color-primary)', textTransform: 'uppercase', marginBottom: 'var(--space-3)' }}>
+              Contenido educativo
+            </span>
+            <h2 style={{ margin: '0 0 var(--space-4)', fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', letterSpacing: '-0.02em' }}>
+              Videos de salud y nutrición
+            </h2>
+            <p style={{ margin: 0, color: 'var(--color-text-secondary)', fontSize: 'var(--text-lg)', maxWidth: 560, marginLeft: 'auto', marginRight: 'auto' }}>
+              Aprende a comer bien con contenido clínico explicado de forma sencilla, adaptado a tu condición.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 'var(--space-5)' }}>
+            {[
+              { emoji: '🩸', category: 'Diabetes',       title: 'Índice glucémico: qué comer y qué evitar',      duration: '8 min' },
+              { emoji: '❤️',  category: 'Hipertensión',  title: 'Dieta DASH: cómo reducir la presión naturalmente', duration: '11 min' },
+              { emoji: '⚖️',  category: 'Peso saludable', title: 'Cómo calcular tu déficit calórico ideal',       duration: '6 min' },
+              { emoji: '🫀',  category: 'Colesterol',    title: 'Grasas buenas vs. malas: la guía definitiva',    duration: '9 min' },
+              { emoji: '🥗',  category: 'Nutrición',     title: 'Proteínas, carbohidratos y grasas en equilibrio', duration: '7 min' },
+              { emoji: '🛒',  category: 'Compras',       title: 'Cómo hacer mercado saludable con poco presupuesto', duration: '5 min' },
+            ].map(v => (
+              <div key={v.title} style={{
+                background: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-xl)',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-sm)',
+              }}>
+                {/* Thumbnail */}
+                <div style={{
+                  background: 'var(--color-primary-subtle)',
+                  height: 140,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  position: 'relative',
+                }}>
+                  <span style={{ fontSize: 48 }}>{v.emoji}</span>
+                  <div style={{
+                    position: 'absolute',
+                    width: 44, height: 44,
+                    borderRadius: '50%',
+                    background: 'var(--color-primary)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                  }}>
+                    <Play size={18} strokeWidth={0} fill="#fff" color="#fff" style={{ marginLeft: 3 }} />
+                  </div>
+                </div>
+                {/* Info */}
+                <div style={{ padding: 'var(--space-4)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-2)' }}>
+                    <span style={{ fontSize: 'var(--text-xs)', fontWeight: 'var(--font-semibold)', color: 'var(--color-primary)', letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase' }}>
+                      {v.category}
+                    </span>
+                    <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>{v.duration}</span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 'var(--text-sm)', fontWeight: 'var(--font-medium)', color: 'var(--color-text)', lineHeight: 'var(--leading-snug)' }}>
+                    {v.title}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 'var(--space-10)' }}>
+            <p style={{ margin: '0 0 var(--space-4)', fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}>
+              Accede a toda la biblioteca de videos con tu cuenta NutriCare
+            </p>
+            <button
+              onClick={() => navigate('/register')}
+              className="button primary"
+              style={{ fontSize: 'var(--text-sm)', padding: '10px 24px', display: 'inline-flex', alignItems: 'center', gap: 8 }}
+            >
+              <Play size={14} strokeWidth={0} fill="#fff" color="#fff" />
+              Ver biblioteca completa
+            </button>
+          </div>
         </div>
       </section>
 

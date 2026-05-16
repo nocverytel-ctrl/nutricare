@@ -341,12 +341,16 @@ function OnboardingForm() {
               Presupuesto mensual para alimentación (COP)
               <input
                 type="text"
-                placeholder="Ej: 220000"
-                value={formData.budget}
-                onChange={e => updateField('budget', e.target.value)}
+                inputMode="numeric"
+                placeholder="Ej: 220.000"
+                value={formData.budget ? Number(formData.budget).toLocaleString('es-CO') : ''}
+                onChange={e => {
+                  const raw = e.target.value.replace(/\D/g, '')
+                  updateField('budget', raw)
+                }}
               />
               <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)', fontWeight: 'var(--font-normal)', textTransform: 'none', letterSpacing: 0 }}>
-                Ingresa solo el número en pesos colombianos. Ej: 220000 para $220.000 COP/mes
+                Ingresa el monto en pesos colombianos — se formatea automáticamente.
               </span>
             </label>
           </div>
