@@ -88,7 +88,6 @@ async function startServer() {
   try {
     await initializeDatabase()
     app.listen(port, '0.0.0.0', () => {
-      console.log(`=== PUERTO: ${port} ===`)
       logger.info(`Nutricare backend iniciado`, { port, env: process.env.NODE_ENV ?? 'development' })
     })
   } catch (error) {
