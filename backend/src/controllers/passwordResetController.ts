@@ -45,42 +45,33 @@ export async function requestPasswordReset(req: Request, res: Response) {
   }
 
   try {
-    console.log('[DEBUG-pw1] SELECT user')
     const userResult = await pool.query('SELECT email FROM users WHERE email = $1', [email])
-    console.log('[DEBUG-pw2] user rows:', userResult.rows.length)
     if (userResult.rows.length === 0) {
       return res.status(200).json({ message: 'Si el correo existe, recibirás las instrucciones.' })
     }
 
-    console.log('[DEBUG-pw3] DELETE old tokens')
     await pool.query('DELETE FROM password_reset_tokens WHERE email = $1', [email])
-    console.log('[DEBUG-pw4] DELETE done')
 
     const token = crypto.randomBytes(32).toString('hex')
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000)
 
-    console.log('[DEBUG-pw5] INSERT token')
     await pool.query(
       'INSERT INTO password_reset_tokens (token, email, expires_at) VALUES ($1, $2, $3)',
       [token, email, expiresAt]
     )
-    console.log('[DEBUG-pw6] INSERT done')
 
     const frontendUrl = process.env.FRONTEND_URL ?? 'http://localhost:5173'
     const resetUrl = `${frontendUrl}/reset-password?token=${token}`
 
-    console.log('[DEBUG-pw7] calling sendResetEmail')
     try {
       await sendResetEmail(email, resetUrl)
-      console.log('[DEBUG-pw8] email sent ok')
     } catch (mailError) {
-      console.error('[DEBUG-pw8] email error:', (mailError as Error).message)
+      console.error('Error enviando email de recuperación:', (mailError as Error).message)
     }
 
-    console.log('[DEBUG-pw9] sending 200')
     return res.status(200).json({ message: 'Si el correo existe, recibirás las instrucciones.' })
   } catch (error) {
-    console.error('[DEBUG-pw-ERR]', error)
+    console.error('Error en forgot-password:', error)
     return res.status(500).json({ error: 'Error interno del servidor.' })
   }
 }
