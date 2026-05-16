@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -18,7 +18,8 @@ import './styles/onboarding.css'
 
 function PrivateRoute({ children }: { children: React.ReactElement }) {
   const { token } = useAuth()
-  return token ? children : <Navigate to="/login" replace />
+  const location = useLocation()
+  return token ? children : <Navigate to="/login" state={{ from: location.pathname }} replace />
 }
 
 function AppRoutes() {

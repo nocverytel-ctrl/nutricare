@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api'
@@ -10,7 +10,9 @@ function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const { login } = useAuth()
+  const from = (location.state as { from?: string })?.from ?? '/dashboard'
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -31,7 +33,7 @@ function LoginPage() {
       }
 
       login(data.token, email)
-      navigate('/dashboard')
+      navigate(from, { replace: true })
     } catch (err) {
       setError('No se pudo conectar con el servidor')
     } finally {
