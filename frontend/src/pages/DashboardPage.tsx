@@ -135,12 +135,26 @@ async function fetchNearbyStores(lat: number, lng: number): Promise<Store[]> {
 );
 out body;`
 
-  const resp = await fetch('https://overpass-api.de/api/interpreter', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: 'data=' + encodeURIComponent(query),
-  })
-  if (!resp.ok) throw new Error('Error al consultar OpenStreetMap.')
+  const OVERPASS_MIRRORS = [
+    'https://overpass.kumi.systems/api/interpreter',
+    'https://overpass.private.coffee/api/interpreter',
+    'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
+  ]
+  let resp: Response | null = null
+  for (const url of OVERPASS_MIRRORS) {
+    try {
+      resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'data=' + encodeURIComponent(query),
+      })
+      if (resp.ok) break
+    } catch {
+      // try next mirror
+    }
+  }
+  if (!resp) throw new Error('Error al consultar OpenStreetMap.')
+  if (!resp.ok) throw new Error('Error al consultar OpenStreetMap. Intenta de nuevo.')
   const data = await resp.json()
 
   return (data.elements as {
