@@ -7,6 +7,7 @@ const pool = new Pool({
     : false,
   connectionTimeoutMillis: 10_000,
   idleTimeoutMillis: 30_000,
+  query_timeout: 12_000,
 })
 
 export default pool
