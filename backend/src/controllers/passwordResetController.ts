@@ -12,23 +12,30 @@ async function sendResetEmail(to: string, resetUrl: string) {
   }
 
   const resend = new Resend(apiKey)
-  await resend.emails.send({
-    from: process.env.RESEND_FROM ?? 'Nutricare <onboarding@resend.dev>',
-    to,
-    subject: 'Recupera tu contraseña - Nutricare',
-    html: `
-      <div style="font-family:sans-serif;max-width:480px;margin:auto;padding:32px;background:#f9fafb;border-radius:16px">
-        <h2 style="color:#166534;margin-top:0">Restablecer contraseña</h2>
-        <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta en <strong>Nutricare</strong>.</p>
-        <p>Haz clic en el siguiente botón para continuar. El enlace expira en <strong>1 hora</strong>.</p>
-        <a href="${resetUrl}"
-           style="display:inline-block;background:#16a34a;color:#fff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;margin:16px 0">
-          Restablecer contraseña
-        </a>
-        <p style="color:#6b7280;font-size:13px">Si no solicitaste esto, ignora este correo. Tu contraseña no cambiará.</p>
-      </div>
-    `,
-  })
+  const timeoutMs = 8_000
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error(`Resend timeout after ${timeoutMs}ms`)), timeoutMs)
+  )
+  await Promise.race([
+    resend.emails.send({
+      from: process.env.RESEND_FROM ?? 'Nutricare <onboarding@resend.dev>',
+      to,
+      subject: 'Recupera tu contraseña - Nutricare',
+      html: `
+        <div style="font-family:sans-serif;max-width:480px;margin:auto;padding:32px;background:#f9fafb;border-radius:16px">
+          <h2 style="color:#166534;margin-top:0">Restablecer contraseña</h2>
+          <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta en <strong>Nutricare</strong>.</p>
+          <p>Haz clic en el siguiente botón para continuar. El enlace expira en <strong>1 hora</strong>.</p>
+          <a href="${resetUrl}"
+             style="display:inline-block;background:#16a34a;color:#fff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;margin:16px 0">
+            Restablecer contraseña
+          </a>
+          <p style="color:#6b7280;font-size:13px">Si no solicitaste esto, ignora este correo. Tu contraseña no cambiará.</p>
+        </div>
+      `,
+    }),
+    timeoutPromise,
+  ])
 }
 
 export async function requestPasswordReset(req: Request, res: Response) {
