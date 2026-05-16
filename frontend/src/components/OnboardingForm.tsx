@@ -79,8 +79,8 @@ function OnboardingForm() {
   // Load existing profile → pre-fill + lock immutable fields
   useEffect(() => {
     if (!token) return
-    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000'
-    fetch(`${apiUrl}/api/profile`, { headers: { Authorization: `Bearer ${token}` } })
+    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api'
+    fetch(`${apiUrl}/profile`, { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (!data?.profile) return
@@ -129,7 +129,7 @@ function OnboardingForm() {
     setSaving(true)
     try {
       const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000'
-      const response = await fetch(`${apiUrl}/api/profile`, {
+      const response = await fetch(`${apiUrl}/profile`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify(formData),

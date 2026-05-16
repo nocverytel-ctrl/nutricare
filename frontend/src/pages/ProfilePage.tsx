@@ -105,8 +105,8 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!token) return
-    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000'
-    fetch(`${apiUrl}/api/profile`, { headers: { Authorization: `Bearer ${token}` } })
+    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api'
+    fetch(`${apiUrl}/profile`, { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(data => {
         if (data?.profile) setProfile(data.profile)

@@ -325,10 +325,10 @@ function DashboardPage() {
       setLoading(true)
       setError('')
       try {
-        const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000'
+        const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api'
         const [menuRes, historyRes] = await Promise.all([
-          fetch(`${apiUrl}/api/menu`, { headers: { Authorization: `Bearer ${token}` } }),
-          fetch(`${apiUrl}/api/menu/history`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${apiUrl}/menu`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${apiUrl}/menu/history`, { headers: { Authorization: `Bearer ${token}` } }),
         ])
         const menuData = await menuRes.json()
         const historyData = await historyRes.json()
@@ -395,8 +395,8 @@ function DashboardPage() {
     setRegenerating(true)
     setError('')
     try {
-      const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000'
-      const response = await fetch(`${apiUrl}/api/menu/regenerate`, {
+      const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api'
+      const response = await fetch(`${apiUrl}/menu/regenerate`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -406,7 +406,7 @@ function DashboardPage() {
       setMenu(normalizeMenu(data.menu))
       setMenuPrices(data.prices ?? null)
       setDailyBudget(data.dailyBudget ?? null)
-      const historyRes = await fetch(`${apiUrl}/api/menu/history`, {
+      const historyRes = await fetch(`${apiUrl}/menu/history`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       const historyData = await historyRes.json()
