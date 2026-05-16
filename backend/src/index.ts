@@ -10,6 +10,7 @@ import rateLimit from 'express-rate-limit'
 import authRoutes from './routes/auth'
 import profileRoutes from './routes/profile'
 import menuRoutes from './routes/menu'
+import surveyRoutes from './routes/survey'
 import validateEnv from './middleware/validateEnv'
 import initializeDatabase from './config/initDb'
 import { logger } from './utils/logger'
@@ -70,6 +71,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/auth',    authRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/menu',    menuRoutes)
+app.use('/api/survey',  surveyRoutes)
 
 // ─── Global error handler ────────────────────────────────────────────────────
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {

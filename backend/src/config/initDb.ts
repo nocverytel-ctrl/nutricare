@@ -58,6 +58,24 @@ async function initializeDatabase() {
       )
     `)
 
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS survey_responses (
+        id SERIAL PRIMARY KEY,
+        respondent_name VARCHAR(100) NOT NULL,
+        q1 INTEGER NOT NULL CHECK (q1 BETWEEN 1 AND 5),
+        q2 INTEGER NOT NULL CHECK (q2 BETWEEN 1 AND 5),
+        q3 INTEGER NOT NULL CHECK (q3 BETWEEN 1 AND 5),
+        q4 INTEGER NOT NULL CHECK (q4 BETWEEN 1 AND 5),
+        q5 INTEGER NOT NULL CHECK (q5 BETWEEN 1 AND 5),
+        q6 INTEGER NOT NULL CHECK (q6 BETWEEN 1 AND 5),
+        q7 INTEGER NOT NULL CHECK (q7 BETWEEN 1 AND 5),
+        q8 TEXT NOT NULL,
+        q9 TEXT NOT NULL,
+        q10 TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `)
+
     console.log('Base de datos inicializada correctamente')
   } catch (error) {
     console.error('Error inicializando la base de datos:', error)

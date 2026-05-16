@@ -11,6 +11,8 @@ import PlanPage from './pages/PlanPage'
 import ChatbotPage from './pages/ChatbotPage'
 import ProfilePage from './pages/ProfilePage'
 import LandingPage from './pages/LandingPage'
+import SurveyPage from './pages/SurveyPage'
+import SurveyResultsPage from './pages/SurveyResultsPage'
 import './App.css'
 import './styles/onboarding.css'
 
@@ -65,6 +67,15 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <ProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route path="/encuesta" element={<SurveyPage />} />
+      <Route
+        path="/encuesta/resultados"
+        element={
+          <PrivateRoute>
+            <SurveyResultsPage />
           </PrivateRoute>
         }
       />
