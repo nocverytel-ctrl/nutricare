@@ -618,7 +618,7 @@ function DashboardPage() {
                       <span>{nutrition.totalKcal} kcal</span>
                       {estimatedMenuCost && (
                         <span title="Precio estimado en plaza de mercado colombiana">
-                          ~{formatPrice(estimatedMenuCost[key])}
+                          aprox. {formatPrice(estimatedMenuCost[key])}
                         </span>
                       )}
                     </div>
@@ -1364,7 +1364,7 @@ function ShoppingListTab({
                   {cat}
                 </h3>
                 <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
-                  ~{formatPrice(CATEGORY_COST[cat] ?? 5000)} c/u
+                  aprox. {formatPrice(CATEGORY_COST[cat] ?? 5000)} c/u
                 </span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
@@ -1401,7 +1401,7 @@ function ShoppingListTab({
                       </span>
                       {needsBuying && (
                         <span style={{ fontSize: 10, color: 'var(--color-text-muted)', flexShrink: 0 }}>
-                          ~{formatPrice(CATEGORY_COST[cat] ?? 5000)}
+                          aprox. {formatPrice(CATEGORY_COST[cat] ?? 5000)}
                         </span>
                       )}
                     </div>
@@ -1604,7 +1604,7 @@ function WeeklyPlannerTab({
                   </ul>
                   <div className="meal-nutrition-row">
                     <span>{nutrition.totalKcal} kcal</span>
-                    <span>~{formatPrice(cost)}</span>
+                    <span>aprox. {formatPrice(cost)}</span>
                     {recipe && <span style={{ color: 'var(--color-primary)', fontWeight: 'var(--font-medium)' }}>Receta ✓</span>}
                   </div>
                 </article>
@@ -1617,7 +1617,7 @@ function WeeklyPlannerTab({
             <div>
               <span>Costo estimado — {DAY_FULL[selectedDay]}</span>
             </div>
-            <strong style={{ color: 'var(--sage-800)' }}>~{formatPrice(weekCosts[selectedDay])}</strong>
+            <strong style={{ color: 'var(--sage-800)' }}>aprox. {formatPrice(weekCosts[selectedDay])}</strong>
           </div>
         </>
       )}

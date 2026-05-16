@@ -225,10 +225,10 @@ export default function LandingPage() {
             </div>
             {/* Mock meals */}
             {[
-              { meal: 'Desayuno', item: 'Avena con frutas y miel', kcal: '320 kcal', price: '~$4.200' },
-              { meal: 'Almuerzo', item: 'Pollo a la plancha con quinoa', kcal: '480 kcal', price: '~$9.500' },
-              { meal: 'Merienda', item: 'Yogur con semillas de chía', kcal: '180 kcal', price: '~$3.000' },
-              { meal: 'Cena',     item: 'Sopa de lentejas con verduras', kcal: '290 kcal', price: '~$4.500' },
+              { meal: 'Desayuno', item: 'Avena con frutas y miel', kcal: '320 kcal', price: 'aprox. $4.200' },
+              { meal: 'Almuerzo', item: 'Pollo a la plancha con quinoa', kcal: '480 kcal', price: 'aprox. $9.500' },
+              { meal: 'Merienda', item: 'Yogur con semillas de chía', kcal: '180 kcal', price: 'aprox. $3.000' },
+              { meal: 'Cena',     item: 'Sopa de lentejas con verduras', kcal: '290 kcal', price: 'aprox. $4.500' },
             ].map((m, i) => (
               <div key={i} style={{
                 padding: 'var(--space-3) var(--space-4)',
@@ -252,7 +252,7 @@ export default function LandingPage() {
             {/* Mock total */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'var(--space-3)', padding: 'var(--space-3) var(--space-4)', background: 'var(--sage-800)', borderRadius: 'var(--radius-md)' }}>
               <span style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.8)' }}>Costo estimado del día</span>
-              <span style={{ fontSize: 'var(--text-lg)', fontWeight: 'var(--font-bold)', color: '#fff' }}>~$21.200</span>
+              <span style={{ fontSize: 'var(--text-lg)', fontWeight: 'var(--font-bold)', color: '#fff' }}>aprox. $21.200</span>
             </div>
           </div>
 
