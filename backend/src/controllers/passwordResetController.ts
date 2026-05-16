@@ -1,32 +1,19 @@
 import { Request, Response } from 'express'
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import pool from '../config/database'
 
-function createTransporter() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null
-
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT ?? 587),
-    secure: Number(SMTP_PORT) === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  })
-}
-
 async function sendResetEmail(to: string, resetUrl: string) {
-  const transporter = createTransporter()
-
-  if (!transporter) {
-    // En desarrollo sin SMTP configurado, imprime el link en consola
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
     console.log(`[DEV] Enlace de recuperación para ${to}: ${resetUrl}`)
     return
   }
 
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM ?? process.env.SMTP_USER,
+  const resend = new Resend(apiKey)
+  await resend.emails.send({
+    from: process.env.RESEND_FROM ?? 'Nutricare <onboarding@resend.dev>',
     to,
     subject: 'Recupera tu contraseña - Nutricare',
     html: `
