@@ -62,19 +62,51 @@ async function initializeDatabase() {
       CREATE TABLE IF NOT EXISTS survey_responses (
         id SERIAL PRIMARY KEY,
         respondent_name VARCHAR(100) NOT NULL,
-        q1 INTEGER NOT NULL CHECK (q1 BETWEEN 1 AND 5),
-        q2 INTEGER NOT NULL CHECK (q2 BETWEEN 1 AND 5),
+        q1 VARCHAR(5) NOT NULL,
+        q2 TEXT NOT NULL,
         q3 INTEGER NOT NULL CHECK (q3 BETWEEN 1 AND 5),
-        q4 INTEGER NOT NULL CHECK (q4 BETWEEN 1 AND 5),
-        q5 INTEGER NOT NULL CHECK (q5 BETWEEN 1 AND 5),
-        q6 INTEGER NOT NULL CHECK (q6 BETWEEN 1 AND 5),
+        q4 VARCHAR(5) NOT NULL,
+        q5 VARCHAR(5) NOT NULL,
+        q6 VARCHAR(5) NOT NULL,
         q7 INTEGER NOT NULL CHECK (q7 BETWEEN 1 AND 5),
-        q8 TEXT NOT NULL,
-        q9 TEXT NOT NULL,
-        q10 TEXT NOT NULL,
+        q8 INTEGER NOT NULL CHECK (q8 BETWEEN 1 AND 5),
+        q9 INTEGER NOT NULL CHECK (q9 BETWEEN 1 AND 5),
+        q10 INTEGER NOT NULL CHECK (q10 BETWEEN 1 AND 5),
+        q11 INTEGER NOT NULL CHECK (q11 BETWEEN 1 AND 5),
+        q12 INTEGER NOT NULL CHECK (q12 BETWEEN 1 AND 5),
+        q13 TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `)
+
+    // Migrar esquema viejo (sin columnas q11/q12/q13) si existe
+    const { rows: cols } = await pool.query(`
+      SELECT column_name FROM information_schema.columns
+      WHERE table_name = 'survey_responses' AND column_name = 'q11'
+    `)
+    if (cols.length === 0) {
+      await pool.query(`DROP TABLE IF EXISTS survey_responses`)
+      await pool.query(`
+        CREATE TABLE survey_responses (
+          id SERIAL PRIMARY KEY,
+          respondent_name VARCHAR(100) NOT NULL,
+          q1 VARCHAR(5) NOT NULL,
+          q2 TEXT NOT NULL,
+          q3 INTEGER NOT NULL CHECK (q3 BETWEEN 1 AND 5),
+          q4 VARCHAR(5) NOT NULL,
+          q5 VARCHAR(5) NOT NULL,
+          q6 VARCHAR(5) NOT NULL,
+          q7 INTEGER NOT NULL CHECK (q7 BETWEEN 1 AND 5),
+          q8 INTEGER NOT NULL CHECK (q8 BETWEEN 1 AND 5),
+          q9 INTEGER NOT NULL CHECK (q9 BETWEEN 1 AND 5),
+          q10 INTEGER NOT NULL CHECK (q10 BETWEEN 1 AND 5),
+          q11 INTEGER NOT NULL CHECK (q11 BETWEEN 1 AND 5),
+          q12 INTEGER NOT NULL CHECK (q12 BETWEEN 1 AND 5),
+          q13 TEXT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `)
+    }
 
     console.log('Base de datos inicializada correctamente')
   } catch (error) {
